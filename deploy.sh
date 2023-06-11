@@ -1,2 +1,2 @@
 sudo clab deploy -t vxlan.yml
-./setup-vxlan.sh
+sudo ./setup-vxlan.sh
