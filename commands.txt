@@ -1,0 +1,4 @@
+docker exec -it clab-vxlan-host6 ping 192.168.1.8
+sudo ip netns exec clab-vxlan-leaf3 tshark -i eth1 -O vxlan
+docker exec -it clab-vxlan-leaf1 vtysh -c "show bgp l2vpn evpn"
+docker exec clab-vxlan-leaf1 ip link set dev eth1 down

@@ -1,0 +1,54 @@
+name: vxlan
+
+topology:
+  defaults:
+    kind: linux
+    # Choose one of the following two images for the hosts
+    # depending on which tools you need
+    image: wbitt/network-multitool:alpine-minimal
+    #image: wbitt/network-multitool:alpine-extra
+  nodes:
+    leaf1:
+      image: frrouting/frr
+      binds:
+        - config/leaf1/daemons:/etc/frr/daemons
+        - config/leaf1/frr.conf:/etc/frr/frr.conf
+    spine1:
+      image: frrouting/frr
+      binds:
+        - config/spine1/daemons:/etc/frr/daemons
+        - config/spine1/frr.conf:/etc/frr/frr.conf
+    leaf2:
+      image: frrouting/frr
+      binds:
+        - config/leaf2/daemons:/etc/frr/daemons
+        - config/leaf2/frr.conf:/etc/frr/frr.conf
+    spine2:
+      image: frrouting/frr
+      binds:
+        - config/spine2/daemons:/etc/frr/daemons
+        - config/spine2/frr.conf:/etc/frr/frr.conf
+    leaf3:
+      image: frrouting/frr
+      binds:
+        - config/leaf3/daemons:/etc/frr/daemons
+        - config/leaf3/frr.conf:/etc/frr/frr.conf             
+    host6:
+      exec:
+        - ip addr add 192.168.1.6/24 dev eth1     
+    host7:
+      exec:
+        - ip addr add 192.168.1.7/24 dev eth1  
+    host8:
+      exec:
+        - ip addr add 192.168.1.8/24 dev eth1   
+  links:
+    - endpoints: ["spine1:eth1", "leaf1:eth1"]
+    - endpoints: ["spine1:eth2", "leaf2:eth1"]
+    - endpoints: ["spine1:eth3", "leaf3:eth1"]
+    - endpoints: ["spine2:eth1", "leaf1:eth2"]
+    - endpoints: ["spine2:eth2", "leaf2:eth2"]
+    - endpoints: ["spine2:eth3", "leaf3:eth2"]
+    - endpoints: ["host6:eth1", "leaf1:eth3"]
+    - endpoints: ["host7:eth1", "leaf2:eth3"]
+    - endpoints: ["host8:eth1", "leaf3:eth3"]  

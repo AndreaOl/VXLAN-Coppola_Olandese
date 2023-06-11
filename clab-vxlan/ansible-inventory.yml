@@ -1,0 +1,20 @@
+all:
+  children:
+    linux:
+      hosts:
+        clab-vxlan-host6:
+          ansible_host: 172.20.20.6
+        clab-vxlan-host7:
+          ansible_host: 172.20.20.4
+        clab-vxlan-host8:
+          ansible_host: 172.20.20.2
+        clab-vxlan-leaf1:
+          ansible_host: 172.20.20.9
+        clab-vxlan-leaf2:
+          ansible_host: 172.20.20.8
+        clab-vxlan-leaf3:
+          ansible_host: 172.20.20.5
+        clab-vxlan-spine1:
+          ansible_host: 172.20.20.7
+        clab-vxlan-spine2:
+          ansible_host: 172.20.20.3
